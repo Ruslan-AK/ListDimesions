@@ -28,12 +28,7 @@ public class Main {
         showFlat(mainList);
     }
 
-    //            [1,2,3,4,[5, 6, 7,8,[9, 10, 11]]]
     public static void showAllDimensions(List<Object> input) {
-        if (input.size() <= 0) {
-            System.out.println("List is empty");
-            return;
-        }
         StringBuilder result = new StringBuilder();
         showAllDimensionsRecursion(input, result);
         System.out.println(result);
@@ -44,26 +39,16 @@ public class Main {
             if (object instanceof List) {
                 showAllDimensionsRecursion((List) object, result);
                 result.append("]");
-            } else if (object instanceof Integer) {
-                if (input.indexOf(object) == 0) {
-                    result.append("[");
-                }
+            } else {
+                result.append((input.indexOf(object) == 0) ? "[" : "");
                 result.append(object);
-                if (input.indexOf(object) != input.size() - 1) {
-                    result.append(",");
-                } else {
-                    result.append("]");
-                }
+                result.append((input.indexOf(object) != input.size() - 1) ? "," : "]");
             }
         }
     }
 
     //[1,2,3,4,5,6,7,8,9,10,11]
     public static void showFlat(List<Object> input) {
-        if (input.size() <= 0) {
-            System.out.println("List is empty");
-            return;
-        }
         StringBuilder result = new StringBuilder("[");
         showFlatRecursion(input, result);
         result.append("]");
@@ -74,22 +59,14 @@ public class Main {
         for (Object object : input) {
             if (object instanceof List) {
                 showFlatRecursion((List) object, result);
-            } else if (object instanceof Integer) {
+            } else {
                 result.append(object);
-                if (input.indexOf(object) != input.size() - 1) {
-                    result.append(",");
-                }
+                result.append((input.indexOf(object) != input.size() - 1) ? "," : "");
             }
         }
     }
 
-    //(arr,2)
-    //[1,2,3,4,5,6,7,8,[9, 10, 11]]
     public static void showDimensions(List<Object> input, int dept) {
-        if (input.size() <= 0) {
-            System.out.println("List is empty");
-            return;
-        }
         StringBuilder result = new StringBuilder("[");
         showDimensionsRecursion(input, result, dept);
         System.out.println(result);
@@ -99,19 +76,11 @@ public class Main {
         for (Object object : input) {
             if (object instanceof List) {
                 showDimensionsRecursion((List) object, result, dept - 1);
-                if (dept <= 1) {
-                    result.append("]");
-                }
-            } else if (object instanceof Integer) {
-                if (input.indexOf(object) == 0 && dept <= 0) {
-                    result.append("[");
-                }
+                result.append((dept <= 1) ? "]" : "");
+            } else {
+                result.append((input.indexOf(object) == 0 && dept <= 0) ? "[" : "");
                 result.append(object);
-                if (input.indexOf(object) != input.size() - 1) {
-                    result.append(",");
-                } else {
-                    result.append("]");
-                }
+                result.append((input.indexOf(object) != input.size() - 1) ? "," : "]");
             }
         }
     }
